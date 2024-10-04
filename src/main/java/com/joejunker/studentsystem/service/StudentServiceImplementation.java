@@ -1,6 +1,8 @@
 package com.joejunker.studentsystem.service; // Package declaration for organizing service classes.
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired; // Importing the @Autowired annotation for dependency injection.
 import org.springframework.stereotype.Service;
 
@@ -23,4 +25,11 @@ public class StudentServiceImplementation implements StudentService { // Class d
 		// Calling the save method on the studentRepository to save the Student object to the database.
 		return studentRepository.save(student); // Returning the saved Student object.
 	}
+
+
+	@Override
+	public List<Student> getAllStudents() {
+		return studentRepository.findAll();
+	}
+	
 }

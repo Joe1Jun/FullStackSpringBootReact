@@ -1,7 +1,10 @@
 package com.joejunker.studentsystem.controller; // Package declaration for organizing controller classes.
 
+import java.util.List;
+
 // Importing necessary Spring annotations and classes.
 import org.springframework.beans.factory.annotation.Autowired; // Used for dependency injection.
+import org.springframework.web.bind.annotation.GetMapping; //use to handle HTTP get requests
 import org.springframework.web.bind.annotation.PostMapping; // Used to handle HTTP POST requests.
 import org.springframework.web.bind.annotation.RequestBody; // Used to bind the request body to a method parameter.
 import org.springframework.web.bind.annotation.RequestMapping; // Used to map web requests to specific handler methods.
@@ -28,5 +31,11 @@ public class StudentController {
 
     	studentService.saveStudent(student); // Calling the saveStudent method of the studentService to save the student in the database.
     	return "New Student is added"; // Returning a confirmation message as a response.
+    }
+    @GetMapping("/getAll")
+    public List <Student> getAllStudents (){
+    	
+    	 return studentService.getAllStudents();
+    	
     }
 }

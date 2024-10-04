@@ -1,6 +1,8 @@
 
 package com.joejunker.studentsystem.service; // Package declaration for organising the service classes.
 
+import java.util.List;
+
 // Importing the Student model, which represents the student entity in the database.
 import com.joejunker.studentsystem.model.Student;
 
@@ -15,6 +17,7 @@ public interface StudentService {
     // The method is public, meaning it can be accessed from other classes and packages.
 
    public Student saveStudent(Student student);
+   public List <Student> getAllStudents();
 }
 
 
