@@ -1,7 +1,7 @@
 // All components used for the form are imported from material.ui
 
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
@@ -16,6 +16,7 @@ export default function Student() {
     const [name, setName] = useState('')
     //Utilise useState to set the state of the address in the input box
     const [address, setAddress] = useState('')
+    const [students, setStudents] = useState([])
     
     //This handles the onClick event when the form is submitted(when the button is clicked)
 
@@ -37,6 +38,20 @@ export default function Student() {
 
 
     }
+    
+    useEffect(() => {
+        // This fetches the data from the "http://localhost:8080/student/getAll" API endpoint.
+        fetch("http://localhost:8080/student/getAll")
+            .then(res => res.json()) // The result is converted to JSON format
+            //This variable doesnt need to be defined asit is the value beind passed from the previous then .
+            .then(result => {
+                // The 'result' contains the list of students fetched from the backend
+                setStudents(result) // This updates the state variable 'students' with the fetched data
+            })
+        
+            // An empty dependency array means this useEffect runs only once, when the component mounts
+    }, [students])
+    
        
     //This is what the function will  return to be used in the app.js file
     return (
@@ -62,7 +77,29 @@ export default function Student() {
                      Submit
                     </Button>
     </Box>
-    </Paper>
+            </Paper>
+            
+            <h1>Students</h1>
+            <Paper elevation={3} style={paperStyle}>
+               {/* The map function iterates over the 'students' array, rendering a Paper component for each student */}
+               { students.map(student => (
+                /* Each student object is used to render its corresponding details */
+              <Paper 
+                elevation={6} // Material UI Paper component with an elevation (shadow effect)
+                style={{ margin: "10px", padding: "15px", textAlign: "left" }} // Inline styles for spacing and text alignment
+                //If the key wasnt included the whole student list would be re rendered cause react doesnt know which item needs to be added
+                key={student.id} // A unique key prop is required by React to identify each list item uniquely
+              >
+                 {/* Display student details */}
+                   Id: {student.id} <br/> {/* Display student ID */}
+                   Name: {student.name} <br/> {/* Display student name */}
+                   Address: {student.address} {/* Display student address */}
+               </Paper>
+               ))}
+
+
+
+            </Paper>
                     
     
         </Container>
