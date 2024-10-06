@@ -4,6 +4,7 @@ import java.util.List;
 
 // Importing necessary Spring annotations and classes.
 import org.springframework.beans.factory.annotation.Autowired; // Used for dependency injection.
+import org.springframework.web.bind.annotation.CrossOrigin; 
 import org.springframework.web.bind.annotation.GetMapping; //use to handle HTTP get requests
 import org.springframework.web.bind.annotation.PostMapping; // Used to handle HTTP POST requests.
 import org.springframework.web.bind.annotation.RequestBody; // Used to bind the request body to a method parameter.
@@ -17,6 +18,7 @@ import com.joejunker.studentsystem.service.StudentService; // Importing the Stud
 // It combines @Controller and @ResponseBody, eliminating the need to annotate every method with @ResponseBody.
 @RestController
 @RequestMapping("/student") // This annotation specifies that any request to /student will be handled by this controller.
+@CrossOrigin(origins = "http://localhost:3000") // This specifies the domain that can access the routes on this page . You can leave it undefined but all domains then have access.
 public class StudentController {
 
     // The @Autowired annotation allows Spring to automatically inject an instance of the StudentService.

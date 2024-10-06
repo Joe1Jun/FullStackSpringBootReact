@@ -24,14 +24,17 @@ export default function Student() {
         e.preventDefault()
         const student = { name, address }
         console.log(student)
+        // Would use axios for larger scale app as it has the built in features
+        // to handle header transfer and no need to manually stringify the body,.
         fetch("http://localhost:8080/student/add", {
-            method: "POST",
-            header: { "Content-Type": "application/json" },
-            body:JSON.stringify(student)
-            
-        }).then(() => {
-            console.log("New Student added")
+         method: "POST", // This tells the server you're sending a POST request
+         headers: { "Content-Type": "application/json" }, // This tells the server you're sending JSON data
+         body: JSON.stringify(student) // The `body` is the data you're sending, converted to a JSON string
         })
+        .then(() => {
+          console.log("New Student added") // Once the request completes successfully, this runs
+         })
+
 
     }
        
